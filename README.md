@@ -1,1 +1,57 @@
 # python-fastapi-postgresql-yt
+
+1. create python virtual environment
+    - python3 -m venv env
+2. activate environemnt
+    - [windows] env\Scripts\activate.ps1
+    - [*nix] source env/bin/activate
+3. install dependencies
+    - pip install fastapi sqlalchemy psycopg2-binary uvicorn
+
+
+Database:
+1. install postgresql
+    - local
+    - docker
+2. create database - QuiApplicationYT
+
+
+RUN commandline:
+//default address and port http://127.0.0.1:8000
+uvicorn main:app --reload
+
+
+// custom address and port
+uvicorn main:app --host 127.0.0.1 --port 8090
+
+
+Run - POSTMAN:
+1. POST
+    //create question
+    URL - http://127.0.0.1:8090/questions/
+    json body:
+    {
+        "question_text": "What is the best python framework?",
+        "choices": [
+            {
+                "choice_text": "FastAPI",
+                "is_correct": true
+            },
+            {
+                "choice_text": "Anything else",
+                "is_correct": false
+            }
+        ]
+    }
+
+query to verify:
+select * from questions q, choices c
+where c.question_id = q.id; 
+
+2. GET
+    // read question
+    URL - http://127.0.0.1:8090/questions/1
+
+3. GET
+    // read choices
+    URL - http://127.0.0.1:8090/choices/1
